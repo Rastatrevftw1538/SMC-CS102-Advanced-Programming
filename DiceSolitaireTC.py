@@ -58,7 +58,7 @@ def main():
                     print(f"\nYour next roll is {dice1} & {dice2}")
                     print(f"your turn points are {turn_score}\n")
                     break
-            # This section does the processes for when you held.
+            # This section does the processes for when you hold.
             if choice == "h":
                 turns += 1
                 score += turn_score
