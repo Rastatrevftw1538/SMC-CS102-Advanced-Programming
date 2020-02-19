@@ -16,6 +16,7 @@ def main():
     score = 0
     turn_score = 0
     turns = 0
+
     # Greeting and instructions.
     print("\nWelcome to Dice Solitare!")
     print(
