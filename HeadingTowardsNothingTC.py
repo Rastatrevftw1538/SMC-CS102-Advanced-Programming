@@ -2,30 +2,35 @@
 # CS 102 Spring 2020
 # March 3rd
 # Program: HeadingTowardsNothing
-# A solitare game that you roll or hold to get summed points
-# until you hold. The goal is to reach the goal in as little
-# turns as possible.
+# A program that takes a list of numbers
+# in a geometric shape and goes around clockwise
+# subtracting and taking the absolute value until
+# all of the values equal zero.
 import random
 
-
-def initial():
-    numList = []
-    num = int(input("Type how many numbers you want to calculate: "))
-    for i in range(num):
-        numList.append(random.randint(0, 40))
-    print(f"Your starting list is: {numList}")
-    return numList
+# Main
+# The main organization of all the functions and the order
+# in which they are called.
+#
+# It doesn't take any input.
+#
+# It prints the inputs for initial(), amount of rounds,
+# and prints the information for total rounds,
+# current list of numbers, and the information
+# for original list, final list and how many rounds
+# it took to equal all the numbers in the list to Zero.
+#
+# It returns nothing.
 
 
 def main():
     numOfRounds = 0
     rounds = 1
-    numList = initial()
-
+    numList = initial(
+        int(input("Type how many numbers you want to calculate: ")))
     currentList = update(numList)
     numOfRounds += 1
-    rounds = moreRounds(
-        int(input("How many more rounds should be executed?: ")))
+    rounds = int(input("How many more rounds should be executed?: "))
     print(f"Your current list of numbers is: {currentList}")
     print(f"The total number of rounds to run is: {rounds}")
     while rounds > 0:
@@ -39,7 +44,38 @@ def main():
         else:
             numOfRounds += 1
             rounds -= 1
+    print(f"Final list is: {currentList}")
+    print(f"The original list is: {numList}")
     raise Exception("End of program!")
+
+# Initial
+#
+# Controls the beginning of the program and asks for how
+# many random numbers should be in the list.
+#
+# It takes a int for the number of random numbers to add.
+#
+# It prints the starting list of random numbers of
+# the given length that was asked as a input.
+#
+# It returns the list of random numbers.
+
+
+def initial(num):
+    numList = []
+    for i in range(num):
+        numList.append(random.randint(0, 40))
+    print(f"Your starting list is: {numList}")
+    return numList
+
+
+def update(numList):
+    newList = numList.copy()
+    backNum = 0
+    for i in range(0, len(numList)):
+        sub = abs(numList[i-1] - numList[i])
+        newList[i] = sub
+    return newList
 
 
 def finished(finalList):
@@ -51,21 +87,6 @@ def finished(finalList):
                 return True
         else:
             return False
-
-
-def update(numList):
-    newList = numList.copy()
-    backNum = 0
-    for i in range(0, len(numList)):
-        sub = abs(numList[i-1] - numList[i])
-        #print(f"{numList[i-1]} - {numList[i]} = {sub}")
-        newList[i] = sub
-    # print(newList)
-    return newList
-
-
-def moreRounds(num):
-    return abs(num)
 
 
 main()
