@@ -40,13 +40,13 @@ def main():
             print(f"Final list is: {currentList}")
             print(f"The original list is: {numList}")
             print(f"It took {numOfRounds} to reach all Zeros")
-            raise Exception("End of program!")
+            return None
         else:
             numOfRounds += 1
             rounds -= 1
     print(f"Final list is: {currentList}")
     print(f"The original list is: {numList}")
-    raise Exception("End of program!")
+    return None
 
 # Initial
 #
@@ -68,6 +68,17 @@ def initial(num):
     print(f"Your starting list is: {numList}")
     return numList
 
+# Update
+#
+# Updates the numbers in the list by subtractacting the number
+# with the numbers behind and in front of it, then taking the
+# absolute value of it 
+#
+# It takes a list as a input for the numbers in the shape.
+#
+# It doesn't print anything.
+#
+# It returns the list of new numbers.
 
 def update(numList):
     newList = numList.copy()
@@ -77,6 +88,17 @@ def update(numList):
         newList[i] = sub
     return newList
 
+# Finished
+#
+# Checks to see if all of the items in the list are
+# zero. If they are the program ends if not it continues.
+#
+# It takes a list as a input for the numbers in the shape.
+#
+# It doesn't print anything.
+#
+# It returns True or False depending on if it meets the 
+# conditions or not.
 
 def finished(finalList):
     numOfZeros = 0
