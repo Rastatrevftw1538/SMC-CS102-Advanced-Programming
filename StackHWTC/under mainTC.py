@@ -19,14 +19,18 @@ from stackprint import Stack
 # under the second stack input.
 
 def under(underStack, topStack):
+    tempStack = Stack()
     newStack = Stack()
-    for under in underStack.items[::1]:
-        newStack.push(under)
-    for over in topStack.items[::1]:
-        newStack.push(over)
+    for i in range(0,underStack.size()): # Reverses the Stack
+        tempStack.push(underStack.pop())
+    for i in range(0,tempStack.size()): # Then puts the Reverse of temp into final stack 
+        newStack.push(tempStack.pop())
+    for i in range(0,topStack.size()): # Reverses the Stack
+        tempStack.push(topStack.pop())
+    for i in range(0,tempStack.size()): # Then puts the Reverse of temp into final stack
+        newStack.push(tempStack.pop())
     return newStack
 
-   
 def main():
     letters = "ABCDEFG"
     st1 = Stack()

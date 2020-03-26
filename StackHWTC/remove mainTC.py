@@ -23,16 +23,17 @@ def remove(stack,target):
     tempStack = Stack()
     newStack = Stack()
     count = 0
-    for entry in stack.items[::-1]:
-        if entry != target:
-                tempStack.push(entry)
+    for i in range(0,stack.size()):
+        if stack.peek() != target:
+            tempStack.push(stack.pop())
         else:
             if count > 0:
-                tempStack.push(entry)
+                tempStack.push(stack.pop())
             else:
+                stack.pop()
                 count += 1
-    for rev in tempStack.items[::-1]:
-        newStack.push(rev)
+    for rev in range(0,tempStack.size()):
+        newStack.push(tempStack.pop())
     return newStack
 
 def main():
