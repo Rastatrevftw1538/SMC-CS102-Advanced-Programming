@@ -91,8 +91,7 @@ class DSQueue:
                if not self.isEmpty():
                     if self.rear == 0:
                          self.rear = self.maxsize - 1
-                    else:
-                         self.rear -= 1
+          self.rear = self.rear - 1
           self.cust[ self.rear ] = cust
           self.size += 1
      
@@ -150,7 +149,7 @@ class DSQueue:
                     count += 1
                     moved = self.cust[self.front-count]
                self.cust[self.rear] = None
-               if self.rear >= self.maxsize - 1:
+               if self.rear <= self.maxsize - 1:
                     self.rear += 1
                if self.sizefp != 0:
                     self.rearfp += 1
