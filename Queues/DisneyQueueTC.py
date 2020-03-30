@@ -13,7 +13,7 @@
 # Circular Dequeues:
 # 
 # .
-
+from random import randint
 class DSQueue:
      # __init__
      # The initializing function that determines the
@@ -26,14 +26,14 @@ class DSQueue:
      #
      # It does not return.
      
-     def __init__(self, maxsize = 40):
+     def __init__(self, maxsize = 200):
           self.maxsize = maxsize
           self.cust = [None]*maxsize
-          self.front = maxsize - 1   
-          self.rear = maxsize -1
+          self.front = self.maxsize - 1   
+          self.rear = self.maxsize -1
           self.sizefp = 0
           self.size = 0
-          self.rearfp = maxsize - self.sizefp
+          self.rearfp = self.maxsize - self.sizefp -1
           
           
      # isEmpty
@@ -113,8 +113,6 @@ class DSQueue:
                if not self.isEmpty():
                     if self.rearfp == 0:
                          self.rearfp = self.maxsize - 1
-                    else:
-                         self.rearfp -= 1
           for p in range(self.maxsize - self.size,self.maxsize-self.sizefp):
                custMove = self.cust[p]
                if self.sizefp > 1 and p > self.maxsize -self.sizefp+self.sizefp:
@@ -125,6 +123,7 @@ class DSQueue:
           self.size += 1
           self.sizefp += 1
           self.rear = self.maxsize - self.size
+          self.rearfp -= 1
      
      
      # ride
@@ -151,7 +150,8 @@ class DSQueue:
                     count += 1
                     moved = self.cust[self.front-count]
                self.cust[self.rear] = None
-               self.rear += 1
+               if self.rear >= self.maxsize - 1:
+                    self.rear += 1
                if self.sizefp != 0:
                     self.rearfp += 1
           self.size -= 1
@@ -179,69 +179,45 @@ class DSQueue:
                else:
                     stringy += str(a)
           return stringy+")" + " size =" + str(self.size) + " FPsize =" + str(self.sizefp) + ", f=" + str(self.front) +", rear=" + str(self.rear)+", FPrear=" + str(self.rearfp)
-     
-def mainDS():
+'''
+def randomizer(ratios):
+     ride, front, back = ratios
+     total = ride + front + back
+     num = randint(1, 100)
+     if num < ride*100/total:
+          return 'r'
+     elif num < (ride+front)*100/total:
+          return 'f'
+     else:
+          return 'b'
+
+## Function update
+## uses a DSQueue and probabilities to update the DSQ.
+##
+## INPUT: theDSQ = the ds-queue we are working on
+##      ratios = %s of time people ride, joinFP, join
+## OUTPUT: nothing, but updates the DSQ with the proper event
+
+def update(theDSQ, ratios):
+     c = randomizer(ratios)
+     if c == 'r' and not theDSQ.isEmpty() :
+          theDSQ.ride()
+     elif c == 'f':
+          theDSQ.joinfp(["F "])
+     else:
+          theDSQ.join(["P "])
+
+
+
+def main():
      l = DSQueue()
      person = "i"
      fpperson = "p"
-     for i in person*5:
-          l.join(i)
+     busy = (.33, .33, .33) # % of time 'ride', 'joinFP', 'join' occur 
+     for i in range(50):
+          update(l, busy)
+          print(l)
+     print("After", str(i), " events, there are", l.size, "people in line.")
      print(l)
-     for s in fpperson*2:
-          l.joinfp(s)
-     print(l)
-     for i in person:
-          l.join(i)
-     print(l)
-     for s in fpperson*2:
-          l.joinfp(s)
-     print(l)
-     l.ride()
-     print(l)
-     for s in fpperson*2:
-          l.joinfp(s)
-     print(l)
-     for i in person*3:
-          l.join(i)
-     print(l)
-     l.ride()
-     l.ride()
-     l.ride()
-     print(l)
-     for s in fpperson*2:
-          l.joinfp(s)
-     print(l)
-     l.ride()
-     l.ride()
-     l.ride()
-     l.ride()
-     print(l)
-     l.ride()
-     l.ride()
-     print(l)
-     for s in fpperson*2:
-          l.joinfp(s)
-     print(l)
-mainDS()
-
-class Deque:
-     def __init__(self):
-          self.items = []
-
-     def isEmpty(self):
-          return self.items == []
-
-     def addFront(self, item):
-          self.items.append(item)
-
-     def addRear(self, item):
-          self.items.insert(0,item)
-
-     def removeFront(self):
-          return self.items.pop()
-
-     def removeRear(self):
-          return self.items.pop(0)
-
-     def size(self):
-          return len(self.items)
+main()
+'''
