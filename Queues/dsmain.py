@@ -68,13 +68,16 @@ def main():
     for i in range(200):
         update(myq, busy)
     print("After", str(i), " events, there are", myq.size, "people in line.")
+    print(myq)
     balanced = (.5, .25, .25)  #half the time 'ride', the other half split between joinFP and join
     for i in range(200):
         update(myq, balanced)
     print("After 400 events, there are", myq.size, "people in line.")
+    print(myq)
     quiet = (.66, .16, .16)  #twice as many 
     for i in range(200):
         update(myq, quiet)
     print("After 600 events, there are", myq.size, "people in line.")
+    print(myq)
 
 main()
