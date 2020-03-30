@@ -48,7 +48,6 @@ def main():
     print("\nMake some room")
     d.removeFront()
     d.removeRear()
-    print(d)
     d.removeFront()
     d.removeRear()
     print(d)

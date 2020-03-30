@@ -14,7 +14,7 @@ class DSQueue:
      # format of the class and it's inputs.
      #
      # Inputs of self and max line size
-     # that defaults to 40.
+     # that defaults to 200.
      #
      # It does not print.
      #
