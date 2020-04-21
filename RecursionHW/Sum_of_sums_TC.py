@@ -3,7 +3,9 @@
 ##Main supplied by Sauerberg
 
 ## SUBSET
-# can target be build with a subset of myset??
+# Will test all possible combinations from the set of numbers given
+# and will try to sum to the given target value. If the target value
+# is reached, it will return True, otherwise, it will return False.
 #### INPUTS
 # myset = set of numbers can use to build target with
 # target = target number
@@ -11,73 +13,96 @@
 ## OUTPUT
 # returns True = target can be a sum of a subset of myset
 # return False = target cannot be a sum of a subset of myset
-## SIDE EFFECT
-# lists are mutable. So if an element from myset is useful, add it total
-# the list ans. This will (eventually) allow us to see how target is built
 
 def subset(myset,target,ans = []):
-    if target == 0 and ans != []:
+    if target == 0:
         return True
-    for i in range(len(myset)):
-        if subset(myset[:i] + myset[i+1:],target - myset[i]):
-            return True
-    return False
-print(subset([1,3,4,5],5))
-'''
-def isSubsetSum(set,n, sum) : 
-    
-    # Base Cases 
-    if (sum == 0) : 
-        return True
-    if (n == 0 and sum != 0) : 
+    elif myset == []:
         return False
-   
-    # If last element is greater than 
-    # sum, then ignore it 
-    if (set[n - 1] > sum) : 
-        return isSubsetSum(set, n - 1, sum); 
-   
-    # else, check if sum can be obtained 
-    # by any of the following 
-    # (a) including the last element 
-    # (b) excluding the last element    
-    return isSubsetSum(set, n-1, sum) or isSubsetSum(set, n-1, sum-set[n-1]) 
+    elif len(myset) == 1:
+        if myset[0] == target:
+            return True
+        return False
+    else:
+        n = myset[0]
+        return subset(myset[1:],target - n,ans + [n]) or subset(myset[1:],target,ans)
+
 
 ## NSUBSET
-# how many ways can target be built as a subset of myset??
+# Will test all possible combinations from the set of numbers given
+# and will try to sum to the given target value. It will then return the
+# amount of combinations that sum to the target value.
 ## INPUTS
 # myset = list of weights to use
 # target = value trying to build using subsets of mylist
 ## RETURNS
 # the number of ways.
 
-def nsubset(myset, target,ans,count = 0, listThing = []):
-    if (target == 0) :
-        return count +1
-    if (ans == 0 and target != 0) : 
+def nsubset(myset, target,ans = []):
+    if target == 0:
+        return 1
+    elif myset == []:
         return 0
+    elif len(myset) == 1:
+        if myset[0] == target:
+            return 1
+        return 0
+    else:
+        n = myset[0]
+        return nsubset(myset[1:],target - n,ans + [n]) + nsubset(myset[1:],target,ans)
+## subsetWeight
+# This will try to take the target value and see if it is possible to reach 0
+# if it is possible, it will return True, otherwise it will return False.
+## INPUTS
+# myset = list of weights
+# target = value list is trying to reach to 0
+## RETURNS
+# True if it was able to reach 0 
+# False if it was not able to reach 0 
 
-    if (myset[ans - 1] > target) : 
-        return nsubset(myset, target, ans -1,count);
-    
-    #if nsubset(myset, target, ans -1,count):
-        #print(myset[ans-1])
-    #return 
-    #if nsubset(myset, target-myset[ans-1], ans-1,count):
-        #print(myset[ans-1])
-    return nsubset(myset, target, ans -1,count) or nsubset(myset, target-myset[ans-1], ans-1,count)
-    #return nsubset(myset, target, ans -1,count)
+def subsetWeight(myset,target ,ans = []):
+    if target == 0:
+        return True
+    elif myset == []:
+        return False
+    elif len(myset) == 1:
+        if myset[0] == target:
+            return True
+        return False
+    else:
+        n = myset[0]
+        return subsetWeight(myset[1:],target - n,ans +[n]) or subsetWeight(myset[1:],target) or subsetWeight(myset[1:],target + n,ans +[n])
 
-#print(nsubset([2, 34, 35, 46, 49, 67, 78],85,7))
 ## MISSING
-# function producing 'first weight that can't be weighed'
-## Input: myset = list of weights
+# Checking to see the smallest number that the set cannot reach
+# and then returning that number to the main function.
+## INPUTS
+# myset = list of weights
+## RETURNS
+# target = the smallest value the target cannot reach
+
+
 def missing(myset):
-    pass
+    target = 1
+    
+    go_on = True
+    
+    while go_on:
+        check = subsetWeight(myset,target)
+        
+        if not check:
+            return target
+        elif target == sum(myset):
+            return sum(myset) + 1
+        else:
+            target += 1
+
 
 #Printer
 #nicely prints a list.
 # [3,5,7] --> "3 + 5 + 7"
+
+
 def printer(ans, target):
     for i in ans[:-1]:
         print(i, "+", end=" ")
@@ -115,8 +140,7 @@ def main():
     
     #if ssum:
         #printer(ans, target)
-    print("The integer", target, "is possible in", nsubset(s, target ,size), "ways.")
+    print("The integer", target, "is possible in", nsubset(s, target, ans), "ways.")
 
     print("The smallest weight not measurable with s is", missing(s))
 main()
-'''
