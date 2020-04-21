@@ -1,26 +1,20 @@
 # Trevor Cardoza
 # CS 102 Spring 2020
-# April 1st
-# Program: Disney Queues and Circular Dequeues
-#
-# Disney Queues:
+# March 31st
+# Program: Disney Queues
 #
 # A program that assigns riders into a line
 # (to the back if they are normal customers and 
 # to the back of the FastPass line if they have 
 # a FastPass).
-# 
-# Circular Dequeues:
-# 
-# .
-from random import randint
+
 class DSQueue:
      # __init__
      # The initializing function that determines the
      # format of the class and it's inputs.
      #
      # Inputs of self and max line size
-     # that defaults to 40.
+     # that defaults to 200.
      #
      # It does not print.
      #
@@ -158,7 +152,7 @@ class DSQueue:
                self.sizefp -= 1
           return rider
      
-     
+     '''
      # __str__
      # Formats the Queue when printed.
      #
@@ -178,45 +172,4 @@ class DSQueue:
                else:
                     stringy += str(a)
           return stringy+")" + " size =" + str(self.size) + " FPsize =" + str(self.sizefp) + ", f=" + str(self.front) +", rear=" + str(self.rear)+", FPrear=" + str(self.rearfp)
-'''
-def randomizer(ratios):
-     ride, front, back = ratios
-     total = ride + front + back
-     num = randint(1, 100)
-     if num < ride*100/total:
-          return 'r'
-     elif num < (ride+front)*100/total:
-          return 'f'
-     else:
-          return 'b'
-
-## Function update
-## uses a DSQueue and probabilities to update the DSQ.
-##
-## INPUT: theDSQ = the ds-queue we are working on
-##      ratios = %s of time people ride, joinFP, join
-## OUTPUT: nothing, but updates the DSQ with the proper event
-
-def update(theDSQ, ratios):
-     c = randomizer(ratios)
-     if c == 'r' and not theDSQ.isEmpty() :
-          theDSQ.ride()
-     elif c == 'f':
-          theDSQ.joinfp(["F "])
-     else:
-          theDSQ.join(["P "])
-
-
-
-def main():
-     l = DSQueue()
-     person = "i"
-     fpperson = "p"
-     busy = (.33, .33, .33) # % of time 'ride', 'joinFP', 'join' occur 
-     for i in range(50):
-          update(l, busy)
-          print(l)
-     print("After", str(i), " events, there are", l.size, "people in line.")
-     print(l)
-main()
-'''
+          '''
