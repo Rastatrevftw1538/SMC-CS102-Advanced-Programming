@@ -91,7 +91,7 @@ class DSQueue:
                if not self.isEmpty():
                     if self.rear == 0:
                          self.rear = self.maxsize - 1
-          self.rear = self.rear - 1
+          self.rear -= 1
           self.cust[ self.rear ] = cust
           self.size += 1
      
