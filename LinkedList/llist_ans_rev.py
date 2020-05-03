@@ -38,6 +38,24 @@ class LinkList:
             mystring += str(current.getData())
         return mystring 
             
+    def mover(self):
+        size = 1
+
+        prevprevious = None
+        previous = None     
+        current = self.head
+
+        while current.getNext() != None:
+            prevprevious = previous
+            previous = current
+            current = current.getNext()
+            size += 1
+
+        if size >= 3:
+            prevprevious.setNext(current)
+            previous.setNext(self.head)
+            self.head = previous
+
 
     ## isEmpty() tests to see whether the list is empty.
     ## It needs no parameters and returns a boolean value.        

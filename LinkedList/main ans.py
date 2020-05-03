@@ -53,11 +53,7 @@ def main():
     print(nl)
     input()
 
-    nl.append(1)
-    print("appended a 1")
-    print(nl)
 
-    nl.reverse()
-    print("appended a 1")
+    nl.mover()
     print(nl)
 main()
