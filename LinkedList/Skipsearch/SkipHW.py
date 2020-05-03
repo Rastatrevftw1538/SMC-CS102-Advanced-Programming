@@ -1,3 +1,5 @@
+#TREVOR CARDOZA
+
 import math
 
 def skipsearch(mylist, target, skip):
@@ -21,35 +23,40 @@ def skipsearch(mylist, target, skip):
     return False
 
 def leapsearch(mylist, target, leap, skip):
+    count = 0
+    number = mylist[0]
+    Done = False
+    step = 1
+    fOb = -1
+    direcList = [leap,-skip,step]
+    def doLoop(num=0,forOrBack = [],frontOrBack=-1):
+        for loopNum in mylist[mylist.index(num):frontOrBack:forOrBack]:
+            if frontOrBack == -1:
+                if loopNum > target:
+                    return(loopNum)
+                elif loopNum == target:
+                    return  True
+            else:
+                if loopNum < target:
+                    return(loopNum)
+                elif loopNum == target:
+                    return  True
+        return False
 
-    def doACheck(num):
-        if num == target:
-            return True
-        elif num < target:
-            return False
-
-
-    for i in mylist[0:-1:leap]:
-        if doACheck(i) != True:
-            for x in mylist[mylist.index(i):0:-skip]:
-                if doACheck(x) == True:
-                    return True
-                else:
-                    for y in mylist[mylist.index(x):-1:1]:
-                        if doACheck(y) == True:
-                            return True
+    while Done != True:
+        number = doLoop(number,direcList[count],fOb)
+        if number == True:
+            Done == True
+            return number
+        elif number == False:
+            Done == True
+            return number
+        if count % 2 == 0:
+            fOb = 0
         else:
-            return True
-    for x in mylist[mylist.index(i):0:-skip]:
-        if doACheck(x) == True:
-            return True
-        else:
-            for y in mylist[mylist.index(x):-1:1]:
-                if doACheck(y) == True:
-                    return True
-                else:
-                    return False
-    return False
+            fOb = -1
+        count += 1
+
 
 def bigO(n):
     bigOForm = 2*math.sqrt(n)
