@@ -6,8 +6,21 @@ def skipsearch(mylist, target, skip):
                 print(x,"x")
                 if x == target:
                     return True
+                elif x < target:
+                    return False
+        elif i == target:
+            return True
+    for x in mylist[-1:0:-1]:
+            print(x,"x")
+            if x == target:
+                return True
+            elif x < target:
+                return False
     return False
+
+def bigO():
+    
 def main():
-    print(skipsearch([1,2,3,4,5,6,7,8,9,10],4,3))
+    print(skipsearch([1,8,17,63,64,90,107,108],90,4))
 
 main()
